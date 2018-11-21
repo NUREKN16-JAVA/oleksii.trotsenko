@@ -1,6 +1,6 @@
 package ua.nure.kn16.trotsenko.usermanagement.db;
 
-import java.sql.Connection; 
+import java.sql.Connection;  
 
 public interface ConnectionFactory {
 	/**

@@ -89,7 +89,7 @@ public class HsqlDBUserDaoTest extends DatabaseTestCase {
         assertNotNull(testUser);
         assertEquals( user.getFirstName(),testUser.getFirstName());
         assertEquals(user.getLastName(),testUser.getLastName());
-    } 
+    }  
     /**
      * Test for user deleting method
      * @throws DatabaseException

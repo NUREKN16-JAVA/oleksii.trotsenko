@@ -10,7 +10,7 @@ import org.junit.Test;
 public class UserTest {
 	private static final int YEAR_OF_BIRTH = 1999;
 	private static final long ID = 1L;
-	 
+	  
 	private User user;
 	
 	//Tests are relevant for October 27

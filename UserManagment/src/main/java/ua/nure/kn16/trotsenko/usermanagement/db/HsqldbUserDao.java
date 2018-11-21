@@ -16,7 +16,7 @@ class HsqlDBUserDao implements UserDAO{
     private static final String UPDATE_QUERY = "UPDATE users SET firstname = ?, lastname = ?, dateofbirth = ? WHERE id = ?";
     private static final String DELETE_QUERY = "DELETE FROM users WHERE id = ?";
     private ConnectionFactory connectionFactory;
- 
+  
     public HsqlDBUserDao(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
