@@ -1,87 +1,94 @@
 package ua.nure.kn16.trotsenko.usermanagement.db;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Date;
+import java.sql.*;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import ua.nure.kn16.trotsenko.usermanagement.User;
 
-public class HsqldbUserDao implements UserDAO {
+class HsqlDBUserDao implements UserDAO{
+    public static final String FIND_ALL_QUERY = "SELECT id, firstname, lastname, dateofbirth FROM users";
+    private static final String INSERT_QUERY = "INSERT INTO users (firstname,lastname,dateofbirth) VALUES (?,?,?)";
+    private ConnectionFactory connectionFactory;
 
-	
+    public HsqlDBUserDao(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
 
-	private static final String INSERT_QUERY = "INSERT INTO users (firstname, lastname, dateofbirth) VALUES (?,?,?)";
-	private ConnectionFactory connectionFactory;
+    public HsqlDBUserDao() {
+    }
 
-	public HsqldbUserDao()
-	{
-	}
-	
-	public HsqldbUserDao (ConnectionFactory connectionFactory)
-	{
-		this.connectionFactory = connectionFactory;
-		
-	}
-	
-	@Override
-	public User create(User user) throws DatabaseException {  
-	    try {
-	      Connection connection =connectionFactory.createConnection();
-	      PreparedStatement statement = connection
-	          .prepareStatement(INSERT_QUERY);
-	      statement.setString(1, user.getFirstName());
-	      statement.setString(2, user.getLastName());
-	      statement.setDate(3, new Date(user.getDateofBirth().getTime()));
-	      int number = statement.executeUpdate();
-	      if (number != 1){
-	        throw new DatabaseException("Number of the inserted rows is " + number);
-	      }
-	      CallableStatement callebleStatement = 
-	          connection.prepareCall("call IDENTITY()");
-	      ResultSet keys = callebleStatement.executeQuery();
-	          if (keys.next()){
-	          user.setId(new Long(keys.getLong(1)));  
-	          }
-	          keys.close();
-	          callebleStatement.close();
-	          statement.close();
-	          connection.close();
-	          return user;
-	    } catch (SQLException e) {
-	      throw new DatabaseException(e);
-	    }
-	  }
-	
-	
-	
+    public ConnectionFactory getConnectionFactory() {
+        return connectionFactory;
+    }
 
+    public void setConnectionFactory(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
 
-	@Override
-	public User find(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public User create(User user) throws DatabaseException {
+        Connection connection = connectionFactory.createConnection();
+        try {
+            PreparedStatement statement = connection
+                    .prepareStatement(INSERT_QUERY);
+            statement.setString(1,user.getFirstName());
+            statement.setString(2,user.getFullName());
+            statement.setDate(3,new Date(user.getDateofBirth().getTime()));
+            int number = statement.executeUpdate();
+            if(number != 1){
+                throw new DatabaseException("Number of inserted raws: " + number);
+            }
+            CallableStatement callableStatement = connection
+                    .prepareCall("call IDENTITY ()");
+            ResultSet keys = callableStatement.executeQuery();
+            if(keys.next()){
+                user.setId(new Long(keys.getLong(1)));
+            }
+            keys.close();
+            callableStatement.close();
+            statement.close();
+            return user;
+        } catch (SQLException e) {
+            throw new DatabaseException(e);
+        }
+    }
 
-	@Override
-	public List<User> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public User find(Long id) {
+        return null;
+    }
 
-	@Override
-	public void update(User user) {
-		// TODO Auto-generated method stub
+    @Override
+    public Collection<User> findAll() throws DatabaseException {
+        Collection<User> result = new LinkedList<>();
 
-	}
+        try {
+            Connection connection = connectionFactory.createConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(FIND_ALL_QUERY);
+            while (resultSet.next()){
+                User user = new User();
+                user.setId(new Long(resultSet.getLong(1)));
+                user.setFirstName(resultSet.getString(2));
+                user.setLastName(resultSet.getString(3));
+                user.setDateofBirth(resultSet.getDate(4));
+                result.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
-	@Override
-	public void delete(User user) {
-		// TODO Auto-generated method stub
+    @Override
+    public void update(User user) {
 
-	}
+    }
 
+    @Override
+    public void delete(User user) {
+
+    }
 }

@@ -9,12 +9,10 @@ public class DatabaseException extends Exception {
 		super(e);
 	}
 
-	public DatabaseException(String string) {
-		super(string);
+	public DatabaseException(String s) {
+		super(s);
 	}
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6704006581342581398L;
-
 }
