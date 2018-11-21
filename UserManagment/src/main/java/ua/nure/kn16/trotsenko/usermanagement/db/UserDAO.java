@@ -10,7 +10,7 @@ public interface UserDAO {
      * Add user to DB table USER
      * @param user with null id field
      * @return user modified record exemplar with DB auto-generated id field
-     */
+     */ 
     public User create(final User user) throws DatabaseException;
     /**
      * Select user from DB table USERS 

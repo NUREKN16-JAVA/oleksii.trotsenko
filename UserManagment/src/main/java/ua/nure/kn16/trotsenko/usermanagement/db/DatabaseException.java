@@ -11,7 +11,7 @@ public class DatabaseException extends Exception {
 
 	public DatabaseException() {
 	}
-
+ 
 	public DatabaseException(String arg0) {
 		super(arg0);
 

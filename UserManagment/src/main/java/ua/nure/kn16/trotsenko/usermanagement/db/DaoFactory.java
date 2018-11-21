@@ -9,7 +9,7 @@ private final Properties properties;
 	
 	private final static DaoFactory INSTANCE = new DaoFactory();
 	
-	/**
+	/** 
 	 * Create exactly one DaoFactory
 	 * @return instance of DaoFactory
 	 */

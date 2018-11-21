@@ -3,7 +3,7 @@ package ua.nure.kn16.trotsenko.usermanagement.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+ 
 public class ConnectionFactoryImpl implements ConnectionFactory {
 
   private String driver;
