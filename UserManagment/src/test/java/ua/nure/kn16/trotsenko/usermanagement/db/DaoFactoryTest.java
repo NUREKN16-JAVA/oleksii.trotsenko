@@ -18,14 +18,14 @@ public class DaoFactoryTest {
 
     @Test
     public void testGetUserDao() {
-        try{
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        assertNotNull("DaoFactory instance is null", daoFactory);
-        UserDAO userDao = daoFactory.getUserDAO();
-        assertNotNull("userDao instance is null", userDao);
-        }catch (RuntimeException e){
-        	e.printStackTrace();
-			fail(e.toString());
-        }
+
+        try {
+			DaoFactory daoFactory = DaoFactory.getInstance();
+			assertNotNull("DaoFactory instance is null", daoFactory);
+			UserDAO userDao = daoFactory.getUserDao();
+			assertNotNull("userDao instance is null", userDao);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 }

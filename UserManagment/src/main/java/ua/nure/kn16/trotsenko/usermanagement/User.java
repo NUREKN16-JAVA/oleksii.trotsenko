@@ -27,7 +27,6 @@ public class User implements Serializable{
 	}
 	
 	public User(Long id, String firstName, String lastName, Date dateofBirth) {
-		super();
 		this.id = id;
 		this.firstName = firstName;
 		LastName = lastName;

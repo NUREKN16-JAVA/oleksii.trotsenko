@@ -12,26 +12,33 @@ public interface UserDAO {
      * @return user modified record exemplar with DB auto-generated id field
      */
     public User create(final User user) throws DatabaseException;
-     /**
-     *
-     * @param id
-     * @return
+    /**
+     * Select user from DB table USERS 
+     * @param id - id of user we want to find
+     * @return user record that have such id
+     * @throws DatabaseException 
      */
-    public User find(final Long id);
-     /**
-     *
-     * @return
+    public User find(final Long id) throws DatabaseException;
+    /**
+     * Select all users from DB table USERS
+     * @return list of users records from DB table USERS
      */
     public Collection<User> findAll() throws DatabaseException;
-     /**
-     *
+    /**
+     * Update user record in DB table USERS 
      * @param user
+     * @throws DatabaseException 
      */
-    public void update(final User user);
-     /**
-     *
+    public void update(final User user) throws DatabaseException;
+    /**
+     * Delete user record in DB table USERS 
      * @param user
+     * @throws DatabaseException 
      */
-    public void delete(final User user);
+    public void delete(final User user) throws DatabaseException;
+    /**
+    *
+    * @param connectionFactory
+    */
      void setConnectionFactory(ConnectionFactory connectionFactory);
 }
