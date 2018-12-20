@@ -1,7 +1,13 @@
 package ua.nure.kn16.trotsenko.usermanagement;
 
-import java.time.LocalDate;
+import javax.jws.soap.SOAPBinding;
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
+
 /**
 * Class User contains information about user
 * */
@@ -9,19 +15,19 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
 
 
     public User() {}
 
-    public User(Long id, String firstName, String lastName, LocalDate dateOfBirth) {
+    public User(Long id, String firstName, String lastName, Date dateOfBirth) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
     }
 
-    public User(String firstName, String lastName, LocalDate dateOfBirth) {
+    public User(String firstName, String lastName, Date dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -50,11 +56,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -69,15 +75,22 @@ public class User {
      * This method expects correct birth date established in the past
      * @return user's age in years
      */
-    long getAge() {
-        LocalDate date = LocalDate.now();
-        int age = date.getYear() - dateOfBirth.getYear();
-        if (date.getMonthValue() < dateOfBirth.getMonthValue() ||
-                (date.getMonthValue() == dateOfBirth.getMonthValue() && date.getDayOfMonth() < dateOfBirth.getDayOfMonth())) {
-            --age;
+    public int getAge() {
+        Calendar dateOfBirthday = Calendar.getInstance();
+        dateOfBirthday.setTime(getDateOfBirth());
+
+        Calendar today = Calendar.getInstance();
+
+        if (dateOfBirthday.after(today)) {
+            throw new IllegalArgumentException("The age can not be negative!");
         }
 
-        return age;
+        DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        int d1 = Integer.parseInt(formatter.format(getDateOfBirth()));
+        int d2 = Integer.parseInt(formatter.format(today.getTime()));
+        int ageCounter = (d2 - d1) / 10000;
+
+        return ageCounter;
     }
 
     @Override

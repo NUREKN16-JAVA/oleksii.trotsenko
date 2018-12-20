@@ -1,5 +1,5 @@
 package ua.nure.kn16.trotsenko.usermanagement.util;
-
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class Message {
@@ -8,7 +8,11 @@ public class Message {
 
     private Message() {}
 
-    public static String getString(String element) {
-        return resourceBundle.getString(element);
+    public static String getString(String key) {
+        try {
+            return resourceBundle.getString(key);
+        } catch (MissingResourceException e) {
+            return '!' + key + '!';
+        }
     }
 }
