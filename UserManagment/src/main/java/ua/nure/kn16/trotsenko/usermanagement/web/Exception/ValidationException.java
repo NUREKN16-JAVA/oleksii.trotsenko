@@ -1,4 +1,4 @@
-package ua.nure.kn16.trotsenko.usermanagement.web.exceptions;
+package ua.nure.kn16.trotsenko.usermanagement.web.Exception;
 
 public class ValidationException extends Exception {
     public ValidationException() {
