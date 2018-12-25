@@ -1,6 +1,7 @@
 package ua.nure.kn16.trotsenko.usermanagement.web;
 
 import ua.nure.kn16.trotsenko.usermanagement.User;
+
 import ua.nure.kn16.trotsenko.usermanagement.db.DaoFactory;
 import ua.nure.kn16.trotsenko.usermanagement.db.DatabaseException;
 import ua.nure.kn16.trotsenko.usermanagement.db.UserDAO;
